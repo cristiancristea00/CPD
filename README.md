@@ -1,1 +1,1 @@
-# CPD
+# Criptografie și Protecția Datelor - Laborator
