@@ -72,7 +72,7 @@ def process_block(block: str, matrix: ndarray) -> str:
     block_matrix: Final[ndarray] = block_idx.reshape((K_SIZE, 1))
 
     # We encrypt/decrypt the block
-    cypher_idx: Final[ndarray] = ((matrix @ block_matrix) % Z26_NO).flatten()
+    cypher_idx: Final[ndarray] = ((matrix @ block_matrix) % Z26).flatten()
 
     # We transform the indices into characters
     cypher_block = np.array(list(chr(idx + ASCII_OFFSET) for idx in cypher_idx))
@@ -97,7 +97,7 @@ PLAIN_TEXT = validate_text(PLAIN_TEXT)
 ASCII_OFFSET: Final[int] = ord('A')
 
 # We define the number of letters in the alphabet
-Z26_NO: Final[int] = 26
+Z26: Final[int] = 26
 
 # We define the size of the encryption matrix
 K_SIZE: Final[int] = K_MATRIX.shape[0]
@@ -105,7 +105,7 @@ K_SIZE: Final[int] = K_MATRIX.shape[0]
 # We check if the encryption matrix is invertible in Z26
 try:
 
-    K_INVERSE: Final[ndarray] = np.array(Matrix(K_MATRIX).inv_mod(Z26_NO))
+    K_INVERSE: Final[ndarray] = np.array(Matrix(K_MATRIX).inv_mod(Z26))
 
 except ValueError as exc:
 

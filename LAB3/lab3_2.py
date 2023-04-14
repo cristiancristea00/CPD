@@ -62,23 +62,23 @@ PLAIN_TEXT = validate_text(PLAIN_TEXT)
 ASCII_OFFSET: Final[int] = ord('A')
 
 # We define the number of letters in the alphabet
-Z26_NO: Final[int] = 26
+Z26: Final[int] = 26
 
 # We encrypt the plaintext
 random.seed(42) # We use a seed to generate the same keys
-ENCRYPTION_KEY_CHARS: list = (chr(random.randrange(0, Z26_NO) + ASCII_OFFSET) for _ in range(len(PLAIN_TEXT)))
+ENCRYPTION_KEY_CHARS: list = (chr(random.randrange(0, Z26) + ASCII_OFFSET) for _ in range(len(PLAIN_TEXT)))
 ENCRYPTION_KEY: str = array_to_string(ENCRYPTION_KEY_CHARS)
 PLAIN_TEXT_ARRAY: Final[ndarray] = np.array(list(ord(char) for char in PLAIN_TEXT)) - ASCII_OFFSET
 ENCRYPTION_KEY_ARRAY: Final[ndarray] = np.array(list(ord(char) for char in ENCRYPTION_KEY)) - ASCII_OFFSET
-CRYPTED_TEXT_ARRAY: Final[ndarray] = (PLAIN_TEXT_ARRAY + ENCRYPTION_KEY_ARRAY) % Z26_NO
+CRYPTED_TEXT_ARRAY: Final[ndarray] = (PLAIN_TEXT_ARRAY + ENCRYPTION_KEY_ARRAY) % Z26
 CRYPTED_TEXT: Final[str] = array_to_string((chr(char + ASCII_OFFSET) for char in CRYPTED_TEXT_ARRAY))
 
 # We decrypt the encrypted text
 random.seed(42) # We use a seed to generate the same keys
-DECRYPTION_KEY_CHARS: list = (chr(random.randrange(0, Z26_NO) + ASCII_OFFSET) for _ in range(len(PLAIN_TEXT)))
+DECRYPTION_KEY_CHARS: list = (chr(random.randrange(0, Z26) + ASCII_OFFSET) for _ in range(len(PLAIN_TEXT)))
 DECRYPTION_KEY: str = array_to_string(DECRYPTION_KEY_CHARS)
 DECRYPTION_KEY_ARRAY: Final[ndarray] = np.array(list(ord(char) for char in DECRYPTION_KEY)) - ASCII_OFFSET
-DECRYPTED_TEXT_ARRAY: Final[ndarray] = (CRYPTED_TEXT_ARRAY + Z26_NO - DECRYPTION_KEY_ARRAY) % Z26_NO
+DECRYPTED_TEXT_ARRAY: Final[ndarray] = (CRYPTED_TEXT_ARRAY + Z26 - DECRYPTION_KEY_ARRAY) % Z26
 DECRYPTED_TEXT: Final[str] = array_to_string((chr(char + ASCII_OFFSET) for char in DECRYPTED_TEXT_ARRAY))
 
 # We print the results

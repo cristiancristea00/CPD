@@ -72,16 +72,16 @@ if len(PLAIN_TEXT) != len(KEY):
 ASCII_OFFSET: Final[int] = ord('A')
 
 # We define the number of letters in the alphabet
-Z26_NO: Final[int] = 26
+Z26: Final[int] = 26
 
 # We encrypt the plaintext
 PLAIN_TEXT_ARRAY: Final[ndarray] = np.array(list(ord(char) for char in PLAIN_TEXT)) - ASCII_OFFSET
 KEY_ARRAY: Final[ndarray] = np.array(list(ord(char) for char in KEY)) - ASCII_OFFSET
-CRYPTED_TEXT_ARRAY: Final[ndarray] = (PLAIN_TEXT_ARRAY + KEY_ARRAY) % Z26_NO
+CRYPTED_TEXT_ARRAY: Final[ndarray] = (PLAIN_TEXT_ARRAY + KEY_ARRAY) % Z26
 CRYPTED_TEXT: Final[str] = array_to_string((chr(char + ASCII_OFFSET) for char in CRYPTED_TEXT_ARRAY))
 
 # We decrypt the encrypted text
-DECRYPTED_TEXT_ARRAY: Final[ndarray] = (CRYPTED_TEXT_ARRAY + Z26_NO - KEY_ARRAY) % Z26_NO
+DECRYPTED_TEXT_ARRAY: Final[ndarray] = (CRYPTED_TEXT_ARRAY + Z26 - KEY_ARRAY) % Z26
 DECRYPTED_TEXT: Final[str] = array_to_string((chr(char + ASCII_OFFSET) for char in DECRYPTED_TEXT_ARRAY))
 
 # We print the results

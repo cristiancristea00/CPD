@@ -69,25 +69,25 @@ KEY_LEN: Final[int] = len(PERM)
 
 # We check if the permutation is valid
 if sorted(PERM) != list(range(1, KEY_LEN + 1)):
-    raise ValueError(F'Permutarea {PERM} nu este validă!')
+    raise ValueError(F'Permutation {PERM} is not valid!')
 
 # We define the ASCII offset
 ASCII_OFFSET: Final[int] = ord('A')
 
 # We define the number of letters in the alphabet
-Z26_NO: Final[int] = 26
+Z26: Final[int] = 26
 
 # We pad the plaintext with random characters
 REMAINDER: Final[int] = len(PLAIN_TEXT) % KEY_LEN
 NO_CHARS_TO_ADD: Final[int] = KEY_LEN - REMAINDER if REMAINDER != 0 else 0
-RANDOM_CHARS: Final[list] = [chr(randbelow(10 ** 10) % Z26_NO + ASCII_OFFSET) for _ in range(NO_CHARS_TO_ADD)]
+RANDOM_CHARS: Final[list] = [chr(randbelow(10 ** 10) % Z26 + ASCII_OFFSET) for _ in range(NO_CHARS_TO_ADD)]
 PADDED_PLAIN_TEXT: Final[str] = PLAIN_TEXT + array_to_string(RANDOM_CHARS)
 
 # We encrypt the plaintext
 PLAIN_TEXT_ARRAY: Final[ndarray] = np.array(list(PADDED_PLAIN_TEXT))
 PLAIN_TEXT_MATRIX: Final[ndarray] = PLAIN_TEXT_ARRAY.reshape(-1, KEY_LEN)
 PERM_IDX: Final[ndarray] = np.array(PERM) - 1
-CRYPTED_MATRIX = PLAIN_TEXT_MATRIX[:, PERM_IDX]
+CRYPTED_MATRIX: Final[ndarray] = PLAIN_TEXT_MATRIX[:, PERM_IDX]
 CRYPTED_TEXT_ARRAY: Final[ndarray] = CRYPTED_MATRIX.flatten()
 CRYPTED_TEXT: Final[str] = array_to_string(CRYPTED_TEXT_ARRAY)
 

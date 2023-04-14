@@ -72,12 +72,12 @@ KEY_LEN: Final[int] = len(KEY)
 ASCII_OFFSET: Final[int] = ord('A')
 
 # We define the number of letters in the alphabet
-Z26_NO: Final[int] = 26
+Z26: Final[int] = 26
 
 # We pad the plaintext with random characters
 REMAINDER: Final[int] = len(PLAIN_TEXT) % KEY_LEN
 NO_CHARS_TO_ADD: Final[int] = KEY_LEN - REMAINDER if REMAINDER != 0 else 0
-RANDOM_CHARS: Final[list] = [chr(randbelow(10 ** 10) % Z26_NO + ASCII_OFFSET) for _ in range(NO_CHARS_TO_ADD)]
+RANDOM_CHARS: Final[list] = [chr(randbelow(10 ** 10) % Z26 + ASCII_OFFSET) for _ in range(NO_CHARS_TO_ADD)]
 PADDED_PLAIN_TEXT: Final[str] = PLAIN_TEXT + array_to_string(RANDOM_CHARS)
 
 # We encrypt the plaintext
@@ -97,7 +97,7 @@ for idx in range(len(PADDED_PLAIN_TEXT) // KEY_LEN):
 
     PLAIN_TEXT_ARRAY: ndarray = np.array(list(ord(char) for char in CURRENT_TEXT)) - ASCII_OFFSET
     KEY_ARRAY: ndarray = np.array(list(ord(char) for char in CURRENT_KEY)) - ASCII_OFFSET
-    CRYPTED_TEXT_ARRAY: ndarray = (PLAIN_TEXT_ARRAY + KEY_ARRAY) % Z26_NO
+    CRYPTED_TEXT_ARRAY: ndarray = (PLAIN_TEXT_ARRAY + KEY_ARRAY) % Z26
     CRYPTED_STRING: str = array_to_string((chr(char + ASCII_OFFSET) for char in CRYPTED_TEXT_ARRAY))
     CRYPTED_TEXT += CRYPTED_STRING
     CURRENT_KEY = CRYPTED_STRING
@@ -124,7 +124,7 @@ for idx in range(len(CRYPTED_TEXT) // KEY_LEN):
 
     CURRENT_CRYPTED_ARRAY: ndarray = np.array(list(ord(char) for char in CURRENT_CRYPTED_TEXT)) - ASCII_OFFSET
     DECRYPT_KEY_ARRAY: ndarray = np.array(list(ord(char) for char in CURRENT_KEY)) - ASCII_OFFSET
-    DECRYPTED_TEXT_ARRAY: ndarray = (CURRENT_CRYPTED_ARRAY - DECRYPT_KEY_ARRAY) % Z26_NO
+    DECRYPTED_TEXT_ARRAY: ndarray = (CURRENT_CRYPTED_ARRAY - DECRYPT_KEY_ARRAY) % Z26
     DECRYPTED_STRING: str = array_to_string((chr(char + ASCII_OFFSET) for char in DECRYPTED_TEXT_ARRAY))
     DECRYPTED_TEXT += DECRYPTED_STRING
     CURRENT_KEY = CURRENT_CRYPTED_TEXT

@@ -68,17 +68,17 @@ PLAIN_TEXT = validate_text(PLAIN_TEXT)
 ASCII_OFFSET: Final[int] = ord('A')
 
 # We define the number of letters in the alphabet
-Z26_NO: Final[int] = 26
+Z26: Final[int] = 26
 
 # We encrypt the plaintext
 SPLIT_TEXT: Final[ndarray] = np.array(list(ord(char) for char in PLAIN_TEXT)) - ASCII_OFFSET  # Transformăm textul într-un array de valori ASCII
-SPLIT_CYPHER: Final[ndarray] = (A_COEF * SPLIT_TEXT + B_COEF) % Z26_NO + ASCII_OFFSET
+SPLIT_CYPHER: Final[ndarray] = (A_COEF * SPLIT_TEXT + B_COEF) % Z26 + ASCII_OFFSET
 CRYPTED_TEXT: Final[str] = array_to_string(chr(char) for char in SPLIT_CYPHER)
 
 # We decrypt the encrypted text
-INV_COEF_A: Final[int] = pow(A_COEF, -1, Z26_NO)  # Calculăm inversul lui a în Z26
+INV_COEF_A: Final[int] = pow(A_COEF, -1, Z26)  # Calculăm inversul lui a în Z26
 CYPHER_TEXT: Final[ndarray] = np.array(list(ord(char) for char in CRYPTED_TEXT)) - ASCII_OFFSET
-SPLIT_DECRYPTED: Final[ndarray] = (INV_COEF_A * (CYPHER_TEXT - B_COEF)) % Z26_NO + ASCII_OFFSET
+SPLIT_DECRYPTED: Final[ndarray] = (INV_COEF_A * (CYPHER_TEXT - B_COEF)) % Z26 + ASCII_OFFSET
 DECRYPTED_TEXT: Final[str] = array_to_string(chr(char) for char in SPLIT_DECRYPTED)
 
 # We print the results

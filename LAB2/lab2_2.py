@@ -69,7 +69,7 @@ PLAIN_TEXT = validate_text(PLAIN_TEXT)
 ASCII_OFFSET: Final[int] = ord('A')
 
 # We define the number of letters in the alphabet
-Z26_NO: Final[int] = 26
+Z26: Final[int] = 26
 
 # We compute the permutation from the key
 SORTED_KEY: Final[list] = sorted(KEY)
@@ -88,7 +88,7 @@ KEY_LEN: Final[int] = len(PERM)
 # We pad the plaintext with random characters
 REMAINDER: Final[int] = len(PLAIN_TEXT) % KEY_LEN
 NO_CHARS_TO_ADD: Final[int] = KEY_LEN - REMAINDER if REMAINDER != 0 else 0
-RANDOM_CHARS: Final[list] = [chr(randbelow(10 ** 10) % Z26_NO + ASCII_OFFSET) for _ in range(NO_CHARS_TO_ADD)]
+RANDOM_CHARS: Final[list] = [chr(randbelow(10 ** 10) % Z26 + ASCII_OFFSET) for _ in range(NO_CHARS_TO_ADD)]
 PADDED_PLAIN_TEXT: Final[str] = PLAIN_TEXT + array_to_string(RANDOM_CHARS)
 
 # We encrypt the plaintext
