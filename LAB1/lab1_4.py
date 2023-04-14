@@ -29,10 +29,13 @@ def validate_text(text: str) -> str:
         str: The uppercase text
     """
 
-    if not text.isalpha():
-        raise ValueError(F'Textul "{text}" nu este valid! Textul trebuie să conțină doar litere!')
+    allcaps = text.upper()
+    result = ''.join(allcaps.split())
 
-    return text.upper()
+    if not result.isalpha():
+        raise ValueError(F'The text {text} is NOT valid. It should contain only letters.')
+
+    return result
 
 
 def array_to_string(array: Iterable) -> str:
