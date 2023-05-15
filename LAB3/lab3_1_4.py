@@ -37,7 +37,7 @@ def validate_text(text: str) -> str:
     return result
 
 
-def array_to_string(array: Iterable) -> str:
+def array_to_string(array: Iterable[str]) -> str:
     """
     Converts an array to a string.
 
